@@ -1,6 +1,4 @@
 const express = require('express');
-const fetch = require('node-fetch');
-const shell = require('shelljs');
 const fs = require('fs');
 const path = require('path');
 
