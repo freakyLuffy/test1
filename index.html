@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TikTok Live Downloader</title>
+  </head>
+  <body>
+    <h1>TikTok Live Downloader</h1>
+      <label for="username">Username:</label>
+      <input id="txt" type="text" name="username" id="username" required>
+      <button type="submit">Download</button>
+  </body>
+  <script src="ffmpeg.js"></script>
+<script>
+const downloadButton = document.querySelector('button[type="submit"]');
+
+downloadButton.addEventListener('click', async () => {
+  const ffmpeg = FFmpeg.createFFmpeg({
+     corePath: new URL('ffmpeg-core.js', document.location).href,
+     workerPath: new URL('ffmpeg-core.worker.js', document.location).href,
+     wasmPath: new URL('ffmpeg-core.wasm', document.location).href,
+     log: true
+   });
+   await ffmpeg.load();
+   const liveUrl=document.getElementById("txt").value;
+    ffmpeg.run('-i', '${liveUrl}', 'c','copy','test.mp4');
+    const dwnLink = document.createElement('a');
+    dwnLink.download = `output${'test.mp4'}`;
+    dwnLink.href= encodedData;
+    dwnLink.click();
+});
+</script>
+
+</html>
